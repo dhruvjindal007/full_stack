@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'reservation',
+    'djoser',
 ]
 
 MIDDLEWARE = [
@@ -132,7 +133,14 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # Ensure this is enabled
+        'rest_framework.authentication.SessionAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',  # Allows all users to access the API
-    ]
+        'rest_framework.permissions.IsAuthenticated',  # Change to 'AllowAny' to allow all users
+    ],
+}
+DJOSER = {
+    "USER_ID_FIELD": "username"
 }
